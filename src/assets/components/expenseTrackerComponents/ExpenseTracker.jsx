@@ -15,14 +15,13 @@ const ExpenseTracker = ({
 
   const [expenseAmount, setExpenseAmount] = useState(0);
 
-  function calculateTotalExpense(list) {
-    console.log(list);
-    return list.reduce((acc, item) => acc + item.price, 0);
-  }
-
   useEffect(() => {
-    setExpenseAmount(expenseList.reduce((acc, item) => acc + item.cost, 0));
-    setBalance(balance - expenseAmount);
+    let latestExpense =
+      expenseList.length !== 0 ? expenseList[expenseList.length - 1].price : 0;
+    setExpenseAmount(
+      expenseList.reduce((acc, item) => acc + Number(item.price), 0)
+    );
+    setBalance(balance - latestExpense);
   }, [expenseList]);
   return (
     <div>

@@ -30,9 +30,6 @@ const ExpenseModal = ({
   const initialExpenseObject = { title: "", price: 0, category: "", date: "" };
   const [expenseObject, setExpenseObject] = useState(initialExpenseObject);
 
-  const handleDeductIncome = (e) => {
-    setBalance(balance - Number(e));
-  };
   const handleAddExpense = () => {
     const newErrors = [];
 
@@ -45,6 +42,7 @@ const ExpenseModal = ({
       console.log("Submitting:", expenseObject);
       setExpenseList((prev) => [...prev, expenseObject]);
       setExpenseObject(initialExpenseObject);
+      onClose();
     } else {
       const allErr = newErrors.reduce((acc, item) => acc + item, "");
       alert(allErr);
@@ -74,7 +72,7 @@ const ExpenseModal = ({
               type="text"
               placeholder="Title"
               variant="standard"
-              required
+              value={expenseObject.title}
               sx={{
                 background:
                   "linear-gradient(0deg, #FBFBFB, #FBFBFB), linear-gradient(0deg, #D9D9D9, #D9D9D9), #D9D9D9",
@@ -144,6 +142,7 @@ const ExpenseModal = ({
               type="text"
               placeholder="Category"
               variant="standard"
+              value={expenseObject.category}
               sx={{
                 background:
                   "linear-gradient(0deg, #FBFBFB, #FBFBFB), linear-gradient(0deg, #D9D9D9, #D9D9D9), #D9D9D9",
@@ -211,9 +210,10 @@ const ExpenseModal = ({
                         boxSizing: "border-box", // fix for Safari
                       },
 
-                      "& .MuiInputBase-root": {
+                      "& .MuiPickersInputBase-root": {
                         alignItems: "center", // ensure full input centers content
                         height: "100%",
+                        marginLeft: "10px",
                       },
                     },
                   },
