@@ -9,6 +9,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   background-color: #a0a0a0;
   border-radius: 10px;
   height: 160px;
@@ -19,11 +20,11 @@
 
 @media (min-width: 768px) {
   .etgrid {
-    height: 300px;
+    height: 45vh;
   }
 }
 @media (min-width: 768px) {
   .etcomponent {
-    height: 220px;
+    height: 30vh;
   }
 }
