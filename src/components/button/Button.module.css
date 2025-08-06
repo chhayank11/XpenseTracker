@@ -1,0 +1,17 @@
+.button {
+  all: unset;
+  width: 167.6471px;
+  height: 38px;
+  top: 245px;
+  left: 588.47px;
+  transform: rotate(0deg); /* angle: 0 deg */
+  opacity: 1;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.incomeButton {
+  background: linear-gradient(90deg, #b5dc52 0%, #89e148 100%);
+}
+.expenseButton {
+  background: linear-gradient(90deg, #ff9595 0%, #ff4747 80%, #ff3838 100%);
+}
