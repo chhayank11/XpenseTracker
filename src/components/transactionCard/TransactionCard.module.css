@@ -1,0 +1,38 @@
+.cardContainer {
+  display: grid;
+  grid-template-columns: 1fr 11fr;
+  gap: 10px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.childContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon {
+}
+.titleDate {
+}
+
+.amountDeleteEdit {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.deleteEdit {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .childContainer {
+    flex-direction: column;
+  }
+  .amountDeleteEdit {
+    justify-content: space-between;
+    gap: 100px;
+  }
+}

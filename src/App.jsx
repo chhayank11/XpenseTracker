@@ -5,6 +5,7 @@ import Piechart from "./components/piechart/Piechart";
 import TransactionList from "./components/transactionList/TransactionList";
 import CustomModal from "./components/modals/CustomModal";
 import IncomeModalContent from "./components/modalContents/IncomeModalContent";
+import ExpenseModalContent from "./components/modalContents/ExpenseModalContent";
 
 function App() {
   //-----------------------------------------useStates--------------------------------------------
@@ -15,24 +16,27 @@ function App() {
   });
 
   const [expenseList, setExpenseList] = useState(() => {
-    const storedList = localStorage.getItem("expenseList");
+    const storedList = localStorage.getItem("expenses");
     return storedList ? JSON.parse(storedList) : [];
   });
 
   const [isBalanceModalOpen, setIsBalanceModalOpen] = useState(false);
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false);
 
+  const [toBeEdited, setToBeEdited] = useState("");
+
   //-----------------------------------------logics--------------------------------------------
 
   const calculateExpense = () => {
-    expenseList.reduce((acc, item) => acc + Number(item.price), 0);
+    if (expenseList.length === 0) return 0;
+    return expenseList.reduce((acc, item) => acc + Number(item.price), 0);
   };
   //-----------------------------------------useEffects--------------------------------------------
   useEffect(() => {
     localStorage.setItem("balance", JSON.stringify(balance));
   }, [balance]);
   useEffect(() => {
-    localStorage.setItem("expenseList", JSON.stringify(expenseList));
+    localStorage.setItem("expenses", JSON.stringify(expenseList));
   }, [expenseList]);
 
   return (
@@ -60,22 +64,36 @@ function App() {
       <div className={styles.transactionContainer}>
         <div>
           <h2 style={{ fontStyle: "italic" }}>Recent Transactions</h2>
-          <TransactionList />
+          <TransactionList
+            expenseList={expenseList}
+            setExpenseList={setExpenseList}
+            setBalance={setBalance}
+            onModalOpen={() => setIsExpenseModalOpen(true)}
+            setToBeEdited={setToBeEdited}
+          />
         </div>
         <div>
           <h2 style={{ fontStyle: "italic" }}>Top Expenses</h2>
         </div>
       </div>
-      <CustomModal
-        isModalOpen={isBalanceModalOpen}
-        setIsModalOpen={setIsBalanceModalOpen}
-      >
+      <CustomModal isModalOpen={isBalanceModalOpen}>
         <IncomeModalContent
           balance={balance}
           setBalance={setBalance}
+          onClose={() => setIsBalanceModalOpen(false)}
+        />
+      </CustomModal>
+      <CustomModal isModalOpen={isExpenseModalOpen}>
+        <ExpenseModalContent
+          balance={balance}
+          setBalance={setBalance}
+          expenseList={expenseList}
+          setExpenseList={setExpenseList}
           onClose={() => {
-            setIsBalanceModalOpen(false);
+            setIsExpenseModalOpen(false);
+            setToBeEdited("");
           }}
+          toBeEdited={toBeEdited}
         />
       </CustomModal>
     </div>

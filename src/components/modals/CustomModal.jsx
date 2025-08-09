@@ -2,7 +2,7 @@ import React from "react";
 import ReactModal from "react-modal";
 ReactModal.setAppElement("#root");
 
-const CustomModal = ({ children, isModalOpen, setIsModalOpen }) => {
+const CustomModal = ({ children, isModalOpen }) => {
   return (
     <ReactModal
       isOpen={isModalOpen}
@@ -16,6 +16,7 @@ const CustomModal = ({ children, isModalOpen, setIsModalOpen }) => {
           transform: "translate(-50%, -50%)",
           padding: "2rem",
           backgroundColor: "#EFEFEFD9",
+          borderRadius: "15px",
         },
         overlay: {
           backgroundColor: " #FFFFFFC4",
