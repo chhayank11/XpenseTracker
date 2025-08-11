@@ -5,10 +5,21 @@ import { useSnackbar } from "notistack";
 const IncomeModalContent = ({ balance, setBalance, onClose }) => {
   const [amount, setAmount] = useState("");
   const { enqueueSnackbar } = useSnackbar();
+  const handleAdd = (e) => {
+    e.preventDefault();
+    if (!amount) {
+      enqueueSnackbar("Please enter some amount", {
+        variant: "warning",
+      });
+      return;
+    }
+    setBalance(balance + Number(amount));
+    onClose();
+  };
   return (
     <div>
       <p className={styles.heading}>Add Balance</p>
-      <div className={styles.modalContentsIncome}>
+      <form onSubmit={handleAdd} className={styles.modalContentsIncome}>
         <input
           className={styles.inputField}
           type="number"
@@ -16,25 +27,13 @@ const IncomeModalContent = ({ balance, setBalance, onClose }) => {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
-        <button
-          className={styles.actionButton}
-          onClick={() => {
-            if (!amount) {
-              enqueueSnackbar("Please enter some amount", {
-                variant: "warning",
-              });
-              return;
-            }
-            setBalance(balance + Number(amount));
-            onClose();
-          }}
-        >
+        <button className={styles.actionButton} type="submit">
           Add Balance
         </button>
         <button className={styles.closeButton} onClick={onClose}>
           close
         </button>
-      </div>
+      </form>
     </div>
   );
 };

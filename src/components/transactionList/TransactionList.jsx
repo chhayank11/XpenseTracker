@@ -10,15 +10,24 @@ const TransactionList = ({
   onModalOpen,
   setToBeEdited,
 }) => {
+  //--------------------usestates------------------------
   const [currPage, setCurrPage] = useState(1);
   const [active3, setActive3] = useState([]);
   const perPage = 3;
   const totalPages = Math.ceil(expenseList.length / perPage);
+
+  //---------------------useEffects---------------------
+  useEffect(() => {
+    if (totalPages < currPage && currPage > 1) {
+      setCurrPage((prev) => prev - 1);
+    }
+  }, [totalPages]);
   useEffect(() => {
     setActive3(
       expenseList.slice(currPage * perPage - perPage, currPage * perPage)
     );
   }, [currPage, expenseList]);
+  //-----------------------------------------------------
   return (
     <div className={styles.listContainer}>
       {expenseList.length === 0 ? (
@@ -36,11 +45,13 @@ const TransactionList = ({
           />
         ))
       )}
-      <Pagination
-        currPage={currPage}
-        setCurrPage={setCurrPage}
-        totalPages={totalPages}
-      />
+      {totalPages > 1 && (
+        <Pagination
+          currPage={currPage}
+          setCurrPage={setCurrPage}
+          totalPages={totalPages}
+        />
+      )}
     </div>
   );
 };

@@ -66,6 +66,7 @@ const ExpenseModalContent = ({
       <form onSubmit={handleSubmit} className={styles.modalContentsExpense}>
         <input
           type="text"
+          name="title"
           className={styles.inputField}
           placeholder="Title"
           value={expObject.title}
@@ -76,6 +77,7 @@ const ExpenseModalContent = ({
         />
         <input
           type="number"
+          name="price"
           className={styles.inputField}
           placeholder="Price"
           value={expObject.price}
@@ -103,6 +105,7 @@ const ExpenseModalContent = ({
         </select>
         <input
           type="date"
+          name="date"
           style={{ color: expObject.date === "" ? "#919191" : "#282727" }}
           className={styles.inputField}
           value={expObject.date}
