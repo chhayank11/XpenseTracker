@@ -115,7 +115,7 @@ const ExpenseModalContent = ({
         />
 
         <button type="submit" className={styles.actionButton}>
-          add
+          Add Expense
         </button>
         <button className={styles.closeButton} onClick={onClose}>
           close
