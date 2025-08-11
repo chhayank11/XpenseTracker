@@ -33,8 +33,20 @@ const ExpenseModalContent = ({
     e.preventDefault();
 
     if (toBeEdited) {
-      const amountToBeUpdated = 0;
-      setBalance((prev) => prev + amountToBeUpdated);
+      const lastAmount = expenseList.find(
+        (item) => item.id === toBeEdited
+      )?.price;
+      const adjustedAmount = lastAmount - Number(expObject.price);
+
+      if (-adjustedAmount > balance) {
+        enqueueSnackbar("Insufficient Balance", { variant: "warning" });
+        return;
+      }
+      setExpenseList((prev) =>
+        prev.map((item) => (item.id === toBeEdited ? { ...expObject } : item))
+      );
+      setBalance((prev) => prev + adjustedAmount);
+      setExpObject(initialState);
       onClose();
     } else {
       if (Number(expObject.price) > balance) {

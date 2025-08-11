@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import styles from "./App.module.css";
 import Card from "./components/card/Card";
-import Piechart from "./components/piechart/Piechart";
+import Piechart from "./components/piechart/ExpensePiechart";
 import TransactionList from "./components/transactionList/TransactionList";
 import CustomModal from "./components/modals/CustomModal";
 import IncomeModalContent from "./components/modalContents/IncomeModalContent";
 import ExpenseModalContent from "./components/modalContents/ExpenseModalContent";
+import ExpensePieChart from "./components/piechart/ExpensePiechart";
+import ExpenseBarChart from "./components/barChart/ExpenseBarChart";
 
 function App() {
   //-----------------------------------------useStates--------------------------------------------
@@ -59,11 +61,13 @@ function App() {
           buttonType="expenseButton"
           setIsModalOpen={setIsExpenseModalOpen}
         ></Card>
-        <Piechart />
+        <ExpensePieChart expenseList={expenseList} />
       </div>
       <div className={styles.transactionContainer}>
         <div>
-          <h2 style={{ fontStyle: "italic" }}>Recent Transactions</h2>
+          <h2 style={{ fontStyle: "italic", marginBottom: "10px" }}>
+            Recent Transactions
+          </h2>
           <TransactionList
             expenseList={expenseList}
             setExpenseList={setExpenseList}
@@ -73,7 +77,10 @@ function App() {
           />
         </div>
         <div>
-          <h2 style={{ fontStyle: "italic" }}>Top Expenses</h2>
+          <h2 style={{ fontStyle: "italic", marginBottom: "10px" }}>
+            Top Expenses
+          </h2>
+          <ExpenseBarChart expenseList={expenseList} />
         </div>
       </div>
       <CustomModal isModalOpen={isBalanceModalOpen}>
